@@ -7,15 +7,19 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     min-height: 100vh;
     background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
     background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
-}
+} */
 
 body, html {
     overflow-x: hidden;
     position:relative;
+    min-height: 100vh;
+    min-height: 100dvh; /*for mobile*/
+    background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
+    background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
 }
 
 .header {
