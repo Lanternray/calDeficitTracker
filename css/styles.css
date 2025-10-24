@@ -8,8 +8,8 @@
 }
 
 html {
-    background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,25%));
-    background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,25%));
+    background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
+    background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
 }
 
 body {
@@ -44,14 +44,25 @@ body {
     width: 100%;
     height: 100px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     padding: 0 8px;
 }
 
 .status {
     font-size: 32px;
     font-weight: bold;
+    width: 350px;
     color: hsl(0,0%,85%);
+    padding: 10px 0px 4px 0px;
+}
+
+#resetBtn {
+    height: 30px;
+    width: 80px;
+    border: none;
+    border-radius: 8px;
+    background-color: #767676;
+    color: hsl(0,0%,85%);   
 }
 
 .entries {
@@ -87,4 +98,13 @@ body {
 
 input::placeholder {
     color: #999999;
+}
+
+.entries-list {
+    color: #cfcfcf;
+    padding: 8px 0 0 8px;
+}
+
+.entries-list ul {
+    list-style: none;
 }
