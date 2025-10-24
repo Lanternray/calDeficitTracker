@@ -31,6 +31,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: hsl(0,0%,15%); /*test1*/
 }
 
 hr {
@@ -43,6 +44,7 @@ hr {
     justify-content: center;
     background-color: #238636;
     width: 100%;
+    z-index: 20; /*test1*/
 }
 
 .title {
@@ -71,7 +73,9 @@ hr {
     width: 600px;
     height: 400px;
     max-width: 90%;
-    position: absolute;
+    /* position: absolute;*/
+    position: fixed; /*test1*/
+    bottom: 0; /*test1*/
     right: 0;
     transform: translateX(100%);
     display: flex;
