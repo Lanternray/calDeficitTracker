@@ -138,10 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
   addListBtn.addEventListener("click", () => {
     const description = inputDescrip.value.trim();
     const amount = parseFloat(inputAmount.value.trim());
-    if (description === "" || isNaN(amount)) {
-      alert("Please enter both description and a valid amount.");
-      return;
-    }
 
     const entry = { description, amount };
     entries.push(entry);
@@ -153,6 +149,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     inputDescrip.value = "";
     inputAmount.value = "";
+  });
+
+    // -----------------------
+  // "Enter" key trigger for Add Entry
+  // -----------------------
+  inputAmount.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // prevents accidental form submission or reload
+      addListBtn.click();     // perform the same action as clicking Add Entry
+    }
   });
 
   // -----------------------
