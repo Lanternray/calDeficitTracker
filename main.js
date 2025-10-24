@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     inputAmount.value = "";
   });
 
-    // -----------------------
+  // -----------------------
   // "Enter" key trigger for Add Entry
   // -----------------------
   inputAmount.addEventListener("keydown", (event) => {
@@ -173,4 +173,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // Load saved data on start
   // -----------------------
   loadState();
+});
+
+// ----------------------
+// Logic for hidden menu
+// ----------------------
+const menu = document.querySelector('#menu');
+const hiddenMenu = document.querySelector('.hidden-menu');
+
+menu.addEventListener('click', () => {
+  menu.classList.toggle('active');
+  hiddenMenu.classList.toggle('active');
 });
