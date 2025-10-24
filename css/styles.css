@@ -7,18 +7,18 @@
     box-sizing: border-box;
 }
 
-body, html {
-    overflow-x: hidden;
-    min-height: 100vh;
-    min-height: 100dvh; /*for mobile*/
-    background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
-    background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
+html {
+    background-color: hsl(0,0%,15%);
 }
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
+    min-height: 100vh;
+    background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
+    background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
 }
 
 hr {
@@ -190,7 +190,7 @@ input::placeholder {
     color: rgb(85,85,85);
     min-height: 2rem;
     text-align: center;
-    margin-top: 200px;;
+    margin-top: auto;
 }
 
 .footer a {
