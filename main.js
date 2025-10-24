@@ -95,16 +95,24 @@ document.addEventListener("DOMContentLoaded", () => {
     li.style.alignItems = "center";
     li.style.gap = "10px";
     li.style.marginTop = "6px";
-    li.style.color = "#ddd";
+    li.style.color = "hsl(0,0%,80%)";
 
     // Remove button
     const removeBtn = document.createElement("button");
-    removeBtn.textContent = "x";
-    removeBtn.style.backgroundColor = "#9f9f9fff";
+    const icon = document.createElement("img");
+    icon.src = "icons/remove.svg";
+    icon.alt = "Remove";
+    icon.style.width = "14px";
+    icon.style.height = "14px";
+    icon.style.verticalAlign = "middle";
+
+    // Add image to button
+    removeBtn.appendChild(icon);
+
+    removeBtn.style.backgroundColor = "hsla(0, 0%, 0%, 0.00)";
     removeBtn.style.color = "white";
     removeBtn.style.border = "none";
-    removeBtn.style.borderRadius = "100vw";
-    removeBtn.style.padding = "2px 8px";
+    removeBtn.style.padding = "4px";
     removeBtn.style.cursor = "pointer";
 
     // Text span
