@@ -190,7 +190,7 @@ input::placeholder {
     color: rgb(85,85,85);
     min-height: 2rem;
     text-align: center;
-    margin-top: auto;
+    margin-top: 200px;
 }
 
 .footer a {
