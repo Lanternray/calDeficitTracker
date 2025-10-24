@@ -128,7 +128,7 @@ th {
     margin-top: 20px;
     max-width: 780px;
     width: 100%;
-    min-height: 400px;
+    min-height: 300px;
     height: auto;
     padding: 8px;
     background-image: -webkit-linear-gradient(hsl(0,0%,25%), hsl(0,0%,15%));
