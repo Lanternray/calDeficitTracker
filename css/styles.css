@@ -7,11 +7,6 @@
     box-sizing: border-box;
 }
 
-html {
-    background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
-    background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
-}
-
 body {
     min-height: 100vh;
     background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
