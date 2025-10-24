@@ -18,20 +18,21 @@ body, html {
 */
 
 html, body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
+    background-color: hsl(0, 0%, 15%);
+    background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
     height: 100%;
-    background: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
+    min-height: 100%;
+    overscroll-behavior: none;
     overflow-x: hidden;
-    overscroll-behavior-y: none;
 }
 
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: hsl(0,0%,15%); /*test1*/
+    min-height: 100svh; /*test2*/
+    min-height: 100dvh; /*test2*/
+    background-attachment: fixed; /*test2*/
 }
 
 hr {
@@ -204,9 +205,9 @@ input::placeholder {
 .footer {
     font-size: 14px;
     color: rgb(85,85,85);
-    min-height: 2rem;
     text-align: center;
-    margin-top: 200px;;
+    margin-top: auto;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 .footer a {
