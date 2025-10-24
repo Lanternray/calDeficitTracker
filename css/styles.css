@@ -14,7 +14,8 @@ html {
 
 body {
     min-height: 100vh;
-    min-height: 100dvh; /*to remove slim white space at bottom when viewng mobile*/
+    background-image: -webkit-linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
+    background-image: linear-gradient(hsl(0,0%,35%), hsl(0,0%,15%));
 }
 
 body, html {
