@@ -94,6 +94,8 @@ body {
     height: 30px;
     padding: 4px;
     color: #cfcfcf;
+    max-width: 150px;
+    width: 30%;
 }
 
 input::placeholder {
