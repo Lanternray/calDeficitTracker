@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // -----------------------
   addListBtn.addEventListener("click", () => {
     const description = inputDescrip.value.trim();
-    const amount = parseFloat(inputAmount.value.trim());
+    const amount = parseFloat(inputAmount.value.trim()) || 0;
 
     const entry = { description, amount };
     entries.push(entry);
