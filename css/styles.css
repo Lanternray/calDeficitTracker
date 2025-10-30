@@ -7,6 +7,20 @@
     box-sizing: border-box;
 }
 
+:root {
+    --main-txt-color: hsl(0,0%,85%);
+}
+
+.descrip {
+    color: var(--main-txt-color);
+    margin-top: 40px;
+    max-width: 800px;
+    width: 100%;
+    padding-left: 8px;
+}
+
+.descrip a { color: var(--main-txt-color) }
+
 html {
     background-color: hsl(0,0%,15%);
 }
