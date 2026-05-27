@@ -8,9 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let totalCalories = 0;
   let entries = [];
 
-  // -----------------------
-  // Cookie helpers
-  // -----------------------
+  // Cookies for save state
   function setCookie(name, value, days = 30) {
     const d = new Date();
     d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
@@ -30,9 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return "";
   }
 
-  // -----------------------
-  // Save + load state
-  // -----------------------
+  // Save and load state
   function saveState() {
     const state = { entries, totalCalories };
     setCookie("calorieTrackerState", JSON.stringify(state), 30);
@@ -55,9 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // -----------------------
-  // Status + color logic
-  // -----------------------
+  //Status
   function updateStatus() {
     statusDisplay.textContent = `Calories: ${totalCalories}`;
     if (totalCalories < 1) {
@@ -67,9 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-    // -----------------------
-  // Reset button logic
-  // -----------------------
+  //Reset Button
   const resetBtn = document.getElementById("resetBtn");
   resetBtn.addEventListener("click", () => {
     // Clear all data
@@ -86,9 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setCookie("calorieTrackerState", "", -1); // expire immediately
   });
 
-  // -----------------------
-  // Entry creation logic
-  // -----------------------
+  // Entries
   function createEntryElement(description, amount) {
     const li = document.createElement("li");
     li.style.display = "flex";
@@ -140,9 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // -----------------------
-  // Add new entry
-  // -----------------------
+  //New entries
   addListBtn.addEventListener("click", () => {
     const description = inputDescrip.value.trim();
     const amount = parseFloat(inputAmount.value.trim()) || 0;
@@ -159,9 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     inputAmount.value = "";
   });
 
-  // -----------------------
-  // "Enter" key trigger for Add Entry
-  // -----------------------
+  // Added "enter" key to trigger new entry
   inputAmount.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault(); // prevents accidental form submission or reload
@@ -169,15 +155,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // -----------------------
   // Load saved data on start
-  // -----------------------
   loadState();
 });
 
-// ----------------------
-// Logic for hidden menu
-// ----------------------
+// Hidden Menu
 const menu = document.querySelector('#menu');
 const hiddenMenu = document.querySelector('.hidden-menu');
 
