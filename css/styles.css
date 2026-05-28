@@ -135,13 +135,14 @@ th {
     font-weight: bold;
     width: 225px;
     height: 225px;
-    color: hsl(0,0%,85%);
+    color: hsl(0, 0%, 85%);
     padding: 10px 0px 4px 0px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid hsl(0,0%,85%);
+    border: 2px solid hsl(41, 100%, 48%);
     border-radius: 50%;
+    box-shadow: 0 0 15px 5px rgba(255, 153, 0, 0.6);
 }
 
 #resetBtn {
