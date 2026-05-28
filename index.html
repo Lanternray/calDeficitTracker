@@ -17,9 +17,7 @@
         <div class="main">
 
                 <div class="status-section">
-                <div class="status">Calories: </div>
-                <!-- <button id="resetBtn">Reset</button> -->
-                <button id="resetBtn"><img src="icons/reset.svg" alt="reset"></button>
+                    <div class="status">0</div>                    
 
             <div class="hidden-menu">
                 <p><strong>The goal for a calorie deficit is to be burning more calories than taken in. </strong><br><br>
@@ -64,9 +62,12 @@
         </div>
         
         <div class="entries">
-            <button id="addListBtn">Add Entry</button>
-            <input type="text" id="inputDescrip" placeholder="description">
-            <input type="number" id="inputAmount" placeholder="amount">
+            <div class="entryForm">
+                <button id="addListBtn">Add Entry</button>
+                <input type="text" id="inputDescrip" placeholder="description">
+                <input type="number" id="inputAmount" placeholder="amount">
+                <button id="resetBtn"><img src="icons/reset.svg" alt="reset"></button>
+            </div>
 
              <div class="entries-list">
                 <ul></ul>

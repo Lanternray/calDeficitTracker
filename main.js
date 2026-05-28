@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //Status
   function updateStatus() {
-    statusDisplay.textContent = `Calories: ${totalCalories}`;
+    statusDisplay.textContent = `${totalCalories}`;
     if (totalCalories < 1) {
       statusDisplay.style.color = "#30b74bff";
     } else {
