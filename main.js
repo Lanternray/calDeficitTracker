@@ -61,9 +61,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  //Reset Button
+  //Reset Button — custom modal confirmation
   const resetBtn = document.getElementById("resetBtn");
-  resetBtn.addEventListener("click", () => {
+  const confirmModal = document.getElementById("confirmModal");
+  const modalYes = document.getElementById("modalYes");
+  const modalNo = document.getElementById("modalNo");
+
+  function showResetModal() {
+    confirmModal.style.display = "flex";
+  }
+
+  function hideResetModal() {
+    confirmModal.style.display = "none";
+  }
+
+  function performReset() {
     // Clear all data
     entries = [];
     totalCalories = 0;
@@ -76,7 +88,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Delete saved cookie
     setCookie("calorieTrackerState", "", -1); // expire immediately
+  }
+
+  resetBtn.addEventListener("click", showResetModal);
+
+  modalYes.addEventListener("click", () => {
+    hideResetModal();
+    performReset();
   });
+
+  modalNo.addEventListener("click", hideResetModal);
 
   // Entries
   function createEntryElement(description, amount) {
