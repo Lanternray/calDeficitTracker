@@ -32,11 +32,12 @@ body {
     height: 60px;
     display: flex;
     justify-content: center;
-    background-color: linear-gradient
+    background-color: #1b1b1b;
+    /*background-color: linear-gradient
     (180deg
     , #2d2a2a 0%
     , #1f1d1d 45%
-    , #171616 100%);
+    , #171616 100%);*/
     width: 100%;
 }
 
