@@ -5,8 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const entriesList = document.querySelector(".entries-list ul");
   const statusDisplay = document.querySelector(".status");
 
+  const histAddBtn = document.getElementById("histAddBtn");
+  const histDate = document.getElementById("histDate");
+  const histAmount = document.getElementById("histAmount");
+  const histEntries = document.querySelector(".histEntries");
+  const histResetBtn = document.getElementById("histResetBtn");
+
   let totalCalories = 0;
   let entries = [];
+  let historyEntries = [];
 
   // Cookies for save state
   function setCookie(name, value, days = 30) {
@@ -30,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Save and load state
   function saveState() {
-    const state = { entries, totalCalories };
+    const state = { entries, totalCalories, historyEntries };
     setCookie("calorieTrackerState", JSON.stringify(state), 30);
   }
 
@@ -45,6 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
         totalCalories = state.totalCalories || 0;
         renderEntries();
         updateStatus();
+      }
+      if (state.historyEntries && Array.isArray(state.historyEntries)) {
+        historyEntries = state.historyEntries;
+        renderHistoryEntries();
       }
     } catch (e) {
       console.error("Error loading saved state:", e);
@@ -67,34 +78,46 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalYes = document.getElementById("modalYes");
   const modalNo = document.getElementById("modalNo");
 
-  function showResetModal() {
+  let resetTarget = null; // "main" or "history"
+
+  function showResetModal(target) {
+    resetTarget = target;
     confirmModal.style.display = "flex";
   }
 
   function hideResetModal() {
     confirmModal.style.display = "none";
+    resetTarget = null;
   }
 
-  function performReset() {
-    // Clear all data
+  function performMainReset() {
     entries = [];
     totalCalories = 0;
 
-    // Clear the list in the DOM
     entriesList.innerHTML = "";
 
-    // Update display
     updateStatus();
-
-    // Delete saved cookie
-    setCookie("calorieTrackerState", "", -1); // expire immediately
+    saveState();
   }
 
-  resetBtn.addEventListener("click", showResetModal);
+  function performHistoryReset() {
+    historyEntries = [];
+
+    const histEntriesList = document.querySelector(".histEntries-list");
+    if (histEntriesList) histEntriesList.innerHTML = "";
+
+    saveState();
+  }
+
+  resetBtn.addEventListener("click", () => showResetModal("main"));
 
   modalYes.addEventListener("click", () => {
+    if (resetTarget === "main") {
+      performMainReset();
+    } else if (resetTarget === "history") {
+      performHistoryReset();
+    }
     hideResetModal();
-    performReset();
   });
 
   modalNo.addEventListener("click", hideResetModal);
@@ -175,6 +198,97 @@ document.addEventListener("DOMContentLoaded", () => {
       addListBtn.click();     // perform the same action as clicking Add Entry
     }
   });
+
+  // --- History Entries ---
+
+  // Create a container for history entries list if it doesn't exist
+  function getHistEntriesList() {
+    let list = document.querySelector(".histEntries-list");
+    if (!list) {
+      list = document.createElement("div");
+      list.className = "histEntries-list";
+      histEntries.appendChild(list);
+    }
+    return list;
+  }
+
+  function createHistoryEntryElement(date, amount) {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "10px";
+    row.style.marginTop = "6px";
+    row.style.color = "hsl(0,0%,80%)";
+
+    // Remove button
+    const removeBtn = document.createElement("button");
+    const icon = document.createElement("img");
+    icon.src = "icons/remove.svg";
+    icon.alt = "Remove";
+    icon.style.width = "14px";
+    icon.style.height = "14px";
+    icon.style.verticalAlign = "middle";
+
+    removeBtn.appendChild(icon);
+    removeBtn.style.backgroundColor = "hsla(0, 0%, 0%, 0.00)";
+    removeBtn.style.color = "white";
+    removeBtn.style.border = "none";
+    removeBtn.style.padding = "4px";
+    removeBtn.style.cursor = "pointer";
+
+    // Text span
+    const textSpan = document.createElement("span");
+    textSpan.textContent = `${date}: ${amount}`;
+
+    // Remove logic
+    removeBtn.addEventListener("click", () => {
+      getHistEntriesList().removeChild(row);
+      historyEntries = historyEntries.filter(e => !(e.date === date && e.amount === amount));
+      saveState();
+    });
+
+    row.appendChild(removeBtn);
+    row.appendChild(textSpan);
+    return row;
+  }
+
+  function renderHistoryEntries() {
+    const list = getHistEntriesList();
+    list.innerHTML = "";
+    historyEntries.forEach(entry => {
+      const row = createHistoryEntryElement(entry.date, entry.amount);
+      list.appendChild(row);
+    });
+  }
+
+  histAddBtn.addEventListener("click", () => {
+    const date = histDate.value.trim();
+    const amount = parseFloat(histAmount.value.trim()) || 0;
+
+    if (!date) return; // don't add if date is empty
+
+    const entry = { date, amount };
+    historyEntries.push(entry);
+
+    const row = createHistoryEntryElement(date, amount);
+    getHistEntriesList().appendChild(row);
+
+    saveState();
+
+    histDate.value = "";
+    histAmount.value = "";
+  });
+
+  // Enter key to trigger history add
+  histAmount.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      histAddBtn.click();
+    }
+  });
+
+  // History reset
+  histResetBtn.addEventListener("click", () => showResetModal("history"));
 
   // Load saved data on start
   loadState();

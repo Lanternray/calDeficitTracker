@@ -145,7 +145,7 @@ th {
     box-shadow: 0 0 15px 5px rgba(255, 153, 0, 0.6);
 }
 
-#resetBtn {
+#resetBtn, #histResetBtn {
     height: 30px;
     width: 30px;
     border: none;
@@ -159,6 +159,10 @@ th {
 }
 
 #resetBtn:active {
+    background-color: #6d6d6d;
+}
+
+#histResetBtn:active {
     background-color: #6d6d6d;
 }
 
@@ -193,7 +197,7 @@ th {
     background-color: #1b662a;
 }
 
-#inputDescrip, #inputAmount {
+#inputDescrip, #inputAmount, #histDate, #histAmount {
     background-color: #00000000;
     border: 1px solid #c6c6c6;
     height: 30px;
@@ -215,6 +219,47 @@ input::placeholder {
 
 .entries-list ul {
     list-style: none;
+}
+
+.histTitle {
+    padding-bottom: 8px;
+}
+
+.history {
+    color: #FF8A3D;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+#histAddBtn {
+    background-color: #767676;;
+    border-radius: 4px;
+    border: none;
+    height: 30px;
+    width: 30px;
+}
+
+#histAddBtn:active {
+    background-color: #6d6d6d;
+}
+
+.histForm {
+    display: flex;
+    gap: 4px;
+}
+
+.histEntries {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.histEntries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 6px;
 }
 
 /*Confirmation dialog*/
