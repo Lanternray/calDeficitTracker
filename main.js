@@ -201,26 +201,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- History Entries ---
 
-  // Create a container for history entries list if it doesn't exist
+  // Get the table body for history entries
   function getHistEntriesList() {
-    let list = document.querySelector(".histEntries-list");
-    if (!list) {
-      list = document.createElement("div");
-      list.className = "histEntries-list";
-      histEntries.appendChild(list);
-    }
-    return list;
+    return document.querySelector(".histEntries-list");
   }
 
   function createHistoryEntryElement(date, amount) {
-    const row = document.createElement("div");
-    row.style.display = "flex";
-    row.style.alignItems = "center";
-    row.style.gap = "10px";
-    row.style.marginTop = "6px";
+    const row = document.createElement("tr");
     row.style.color = "hsl(0,0%,80%)";
 
-    // Remove button
+    // Remove button cell
+    const removeCell = document.createElement("td");
     const removeBtn = document.createElement("button");
     const icon = document.createElement("img");
     icon.src = "icons/remove.svg";
@@ -236,9 +227,16 @@ document.addEventListener("DOMContentLoaded", () => {
     removeBtn.style.padding = "4px";
     removeBtn.style.cursor = "pointer";
 
-    // Text span
-    const textSpan = document.createElement("span");
-    textSpan.textContent = `${date}: ${amount}`;
+    removeCell.appendChild(removeBtn);
+
+    // Date cell
+    const dateCell = document.createElement("td");
+    dateCell.textContent = date;
+
+    // Amount cell
+    const amountCell = document.createElement("td");
+    amountCell.textContent = amount;
+    amountCell.className = amount > 0 ? "histAmount-positive" : "histAmount-negative";
 
     // Remove logic
     removeBtn.addEventListener("click", () => {
@@ -247,8 +245,9 @@ document.addEventListener("DOMContentLoaded", () => {
       saveState();
     });
 
-    row.appendChild(removeBtn);
-    row.appendChild(textSpan);
+    row.appendChild(removeCell);
+    row.appendChild(dateCell);
+    row.appendChild(amountCell);
     return row;
   }
 

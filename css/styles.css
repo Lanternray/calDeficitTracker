@@ -277,11 +277,49 @@ input::placeholder {
     gap: 4px;
 }
 
+.histTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+    table-layout: fixed;
+}
+
+.histTable th {
+    background-color: rgb(219, 143, 56);
+    color: hsl(0,0%,15%);
+    padding: 6px 8px;
+    text-align: left;
+    border: 1px solid rgb(136, 136, 136);
+    font-weight: bold;
+}
+
+.histTable th:first-child {
+    width: 32px;
+    text-align: center;
+}
+
+.histTable td {
+    padding: 4px 8px;
+    border: 1px solid rgb(136, 136, 136);
+    color: hsl(0,0%,80%);
+}
+
+.histTable td:first-child {
+    text-align: center;
+}
+
+.histAmount-positive {
+    color: #e53c39ff !important;
+    font-weight: bold;
+}
+
+.histAmount-negative {
+    color: #30b74bff !important;
+    font-weight: bold;
+}
+
 .histEntries-list {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding-top: 6px;
+    display: table-row-group;
 }
 
 /*Confirmation dialog*/

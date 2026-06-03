@@ -79,14 +79,24 @@
 
     <div class="history">
         <div class="histTitle"><h2>History</h2></div>
-        <div class="histEntries">
-            <div class="histForm">
-                <button id="histAddBtn"><img src="icons/add.svg" alt="history add"></button>
-                <input type="text" id="histDate" placeholder="Date">
-                <input type="number" id="histAmount" placeholder="Surplus/Deficit">
-                <button id="histResetBtn"><img src="icons/reset.svg" alt="reset"></button>
+            <div class="histEntries">
+                <div class="histForm">
+                    <button id="histAddBtn"><img src="icons/add.svg" alt="history add"></button>
+                    <input type="text" id="histDate" placeholder="Date">
+                    <input type="number" id="histAmount" placeholder="Surplus/Deficit">
+                    <button id="histResetBtn"><img src="icons/reset.svg" alt="reset"></button>
+                </div>
+                <table class="histTable">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Date</th>
+                            <th>Surplus/Deficit</th>
+                        </tr>
+                    </thead>
+                    <tbody class="histEntries-list"></tbody>
+                </table>
             </div>
-        </div>
             
     </div>
 
