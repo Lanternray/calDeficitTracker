@@ -110,6 +110,7 @@ th {
     overflow-x: hidden;
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .main {
@@ -230,6 +231,7 @@ input::placeholder {
     display: flex;
     flex-direction: column;
     width: 90%;
+    padding: 8px 8px 0 8px;
 }
 
 #histAddBtn {
