@@ -197,7 +197,7 @@ th {
     background-color: #1b662a;
 }
 
-#inputDescrip, #inputAmount, #histDate, #histAmount {
+#inputDescrip, #inputAmount {
     background-color: #00000000;
     border: 1px solid #c6c6c6;
     height: 30px;
@@ -238,6 +238,28 @@ input::placeholder {
     border: none;
     height: 30px;
     width: 30px;
+}
+
+#histAmount {
+    background-color: #00000000;
+    border: 1px solid #c6c6c6;
+    height: 30px;
+    padding: 4px;
+    color: #cfcfcf;
+    max-width: 150px;
+    width: 40%;
+    border-radius: 4px;
+}
+
+#histDate {
+    background-color: #00000000;
+    border: 1px solid #c6c6c6;
+    height: 30px;
+    padding: 4px;
+    color: #cfcfcf;
+    max-width: 150px;
+    width: 20%;
+    border-radius: 4px;
 }
 
 #histAddBtn:active {
