@@ -9,110 +9,137 @@
 <body>
 
     <div class="header">
-        <div class="title"><h1>Calorie Deficit Tracker</h1></div>
-        <button id="menu"><img src="icons/menu.svg" alt="menu"></button>    
+        <div class="title">
+            <h1>Calorie Deficit Tracker</h1>
+        </div>
+        <button id="menu" title="Info panel">
+            <img src="icons/menu.svg" alt="menu">
+        </button>
     </div>
 
     <div class="main-wrapper">
         <div class="main">
 
-                <div class="status-section">
-                    <div class="status">0</div>                    
+            <div class="status-section">
+                <div class="status">0</div>
+            </div>
 
             <div class="hidden-menu">
-                <p><strong>The goal for a calorie deficit is to be burning more calories than taken in. </strong><br><br>
-                Add items consumed and it's calories. <br>
-                Add activity burned and it's negative(-) calories.</p><br>
-                
+                <p>
+                    <strong>The goal for a calorie deficit is to be burning more calories than taken in.</strong>
+                </p>
+                <p>
+                    Add items consumed and its calories.<br>
+                    Add activity burned and its negative (-) calories.
+                </p>
+
                 <table>
-                  <thead>
-                    <tr>
-                      <th>Common Activities</th>
-                      <th>Calories</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                        <td>Baseline</td>
-                        <td>-1600</td>
-                    </tr>
-                    <tr>
-                        <td>Mow Lawn (push mower)</td>
-                        <td>-450</td>
-                    </tr>
-                    <tr>
-                        <td>Strength Training (30 min)</td>
-                        <td>-240</td>
-                    </tr>
-                    <tr>
-                        <td>Jog/Aerobic (15 min)</td>
-                        <td>-150</td>
-                    </tr>
-                    <tr>
-                        <td>Walk/Aerobic (30 min)</td>
-                        <td>-150</td>
-                    </tr>
-                  </tbody>
-                </table><br>
-            
-                <p>Checkout this great <a href="https://www.calculator.net/calories-burned-calculator.html" target="_blank">Calculator</a> for estimates on calories burned by activity!</p><br>
-                <p>You can use this <a href="https://www.calculator.net/bmr-calculator.html" target="_blank" rel="noreferrer">BMR calculator</a> to set a baseline of calories burned on a daily basis.</p>
-            </div>            
-
-        </div>
-        
-        <div class="entries">
-            <div class="entryForm">
-                <button id="addListBtn">Add Entry</button>
-                <input type="text" id="inputDescrip" placeholder="Description">
-                <input type="number" id="inputAmount" placeholder="Amount">
-                <button id="resetBtn"><img src="icons/reset.svg" alt="reset"></button>
-            </div>
-
-             <div class="entries-list">
-                <ul></ul>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="history">
-        <div class="histTitle"><h2>History</h2></div>
-            <div class="histEntries">
-                <div class="histForm">
-                    <button id="histAddBtn"><img src="icons/add.svg" alt="history add"></button>
-                    <input type="text" id="histDate" placeholder="Date">
-                    <input type="number" id="histAmount" placeholder="Surplus/Deficit">
-                    <button id="histResetBtn"><img src="icons/reset.svg" alt="reset"></button>
-                </div>
-                <table class="histTable">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Date</th>
-                            <th>Surplus/Deficit</th>
+                            <th>Common Activities</th>
+                            <th>Calories</th>
                         </tr>
                     </thead>
-                    <tbody class="histEntries-list"></tbody>
+                    <tbody>
+                        <tr>
+                            <td>Baseline</td>
+                            <td>-1600</td>
+                        </tr>
+                        <tr>
+                            <td>Mow Lawn (push mower)</td>
+                            <td>-450</td>
+                        </tr>
+                        <tr>
+                            <td>Strength Training (30 min)</td>
+                            <td>-240</td>
+                        </tr>
+                        <tr>
+                            <td>Jog/Aerobic (15 min)</td>
+                            <td>-150</td>
+                        </tr>
+                        <tr>
+                            <td>Walk/Aerobic (30 min)</td>
+                            <td>-150</td>
+                        </tr>
+                    </tbody>
                 </table>
+
+                <p>
+                    Check out this great
+                    <a href="https://www.calculator.net/calories-burned-calculator.html" target="_blank">
+                        Calculator
+                    </a>
+                    for estimates on calories burned by activity!
+                </p>
+                <p>
+                    You can use this
+                    <a href="https://www.calculator.net/bmr-calculator.html" target="_blank" rel="noreferrer">
+                        BMR calculator
+                    </a>
+                    to set a baseline of calories burned on a daily basis.
+                </p>
             </div>
-            
-    </div>
 
-    </div>
+            <div class="entries">
+                <div class="entryForm">
+                    <button id="addListBtn">Add Entry</button>
+                    <input type="text" id="inputDescrip" placeholder="Description">
+                    <input type="number" id="inputAmount" placeholder="Amount">
+                    <button id="resetBtn" title="Reset entries">
+                        <img src="icons/reset.svg" alt="reset">
+                    </button>
+                </div>
 
-    <!-- Yes or no prompt -->
-    <div id="confirmModal" class="modal-overlay" style="display: none;">
-      <div class="modal-box">
-        <p class="modal-message">Are you sure?</p>
-        <div class="modal-actions">
-          <button id="modalYes" class="modal-btn modal-btn-yes">Yes</button>
-          <button id="modalNo" class="modal-btn modal-btn-no">No</button>
+                <div class="entries-list">
+                    <ul></ul>
+                </div>
+            </div>
+
+            <div class="history">
+                <div class="histTitle">
+                    <h2>History</h2>
+                </div>
+                <div class="histEntries">
+                    <div class="histForm">
+                        <button id="histAddBtn" title="Add history entry">
+                            <img src="icons/add.svg" alt="history add">
+                        </button>
+                        <input type="text" id="histDate" placeholder="Date">
+                        <input type="number" id="histAmount" placeholder="Surplus/Deficit">
+                        <button id="histResetBtn" title="Reset history">
+                            <img src="icons/reset.svg" alt="reset">
+                        </button>
+                    </div>
+                    <table class="histTable">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Date</th>
+                                <th>Surplus/Deficit</th>
+                            </tr>
+                        </thead>
+                        <tbody class="histEntries-list"></tbody>
+                    </table>
+                </div>
+            </div>
+
         </div>
-      </div>
     </div>
 
-    <div class="footer"><a href="https://lanternray.github.io/myhome/">&copy 2025 Shane Raweewonrungjumrus</a></div>
+    <!-- Confirmation modal -->
+    <div id="confirmModal" class="modal-overlay" style="display: none;">
+        <div class="modal-box">
+            <p class="modal-message">Are you sure?</p>
+            <div class="modal-actions">
+                <button id="modalYes" class="modal-btn modal-btn-yes">Yes</button>
+                <button id="modalNo" class="modal-btn modal-btn-no">No</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="https://lanternray.github.io/myhome/">&copy; 2025 Shane Raweewonrungjumrus</a>
+    </div>
 
     <script src="main.js" defer></script>
 
