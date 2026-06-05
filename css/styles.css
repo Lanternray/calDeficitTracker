@@ -150,10 +150,10 @@ body {
   backdrop-filter: blur(20px);
   color: var(--text-primary);
   padding: 20px;
-  top: 0;
+  top: 72px;
   width: 600px;
   max-width: 92%;
-  position: absolute;
+  position: fixed;
   right: 0;
   transform: translateX(120%);
   display: flex;
@@ -165,7 +165,7 @@ body {
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-lg);
   z-index: 10;
-  max-height: 500px;
+  max-height: calc(100vh - 96px);
   overflow-y: auto;
 }
 
