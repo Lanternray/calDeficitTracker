@@ -8,17 +8,17 @@
   --bg-card: #1c1c2e;
   --bg-input: rgba(255, 255, 255, 0.05);
 
-  --accent: #ff8a3d;
-  --accent-hover: #ffa05e;
-  --accent-glow: rgba(255, 138, 61, 0.4);
-  --accent-dim: rgba(255, 138, 61, 0.15);
+  --accent: #7ecb8a;
+  --accent-hover: #96d4a0;
+  --accent-glow: rgba(126, 203, 138, 0.4);
+  --accent-dim: rgba(126, 203, 138, 0.15);
 
   --text-primary: #e8e8f0;
   --text-secondary: #9e9eb8;
   --text-muted: #6b6b85;
 
   --border-color: rgba(255, 255, 255, 0.1);
-  --border-focus: rgba(255, 138, 61, 0.5);
+  --border-focus: rgba(126, 203, 138, 0.5);
 
   --success: #30b74b;
   --danger: #e53c39;
@@ -116,7 +116,7 @@ body {
   font-size: 1.3rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #ff8a3d, #ff6b35);
+  background: linear-gradient(135deg, #7ecb8a, #58b870);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -265,7 +265,7 @@ th {
   border: 2px solid var(--accent);
   border-radius: 50%;
   box-shadow: var(--shadow-glow);
-  background: linear-gradient(135deg, rgba(255, 138, 61, 0.08), rgba(255, 138, 61, 0.02));
+  background: linear-gradient(135deg, rgba(126, 203, 138, 0.08), rgba(126, 203, 138, 0.02));
   animation: statusPulse 4s ease-in-out infinite;
   letter-spacing: -0.03em;
   transition: color 0.3s ease;
@@ -292,7 +292,7 @@ th {
     box-shadow: var(--shadow-glow);
   }
   50% {
-    box-shadow: 0 0 30px 8px rgba(255, 138, 61, 0.3);
+    box-shadow: 0 0 30px 8px rgba(126, 203, 138, 0.3);
   }
 }
 
@@ -356,25 +356,25 @@ th {
   padding: 0 20px;
   border: none;
   border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, var(--accent), #ff6b35);
+  background: linear-gradient(135deg, var(--accent), #58b870);
   color: #fff;
   font-weight: 600;
   font-size: 0.85rem;
   cursor: pointer;
   transition: all var(--transition);
-  box-shadow: 0 2px 8px rgba(255, 138, 61, 0.3);
+  box-shadow: 0 2px 8px rgba(126, 203, 138, 0.3);
   letter-spacing: 0.01em;
 }
 
 #addListBtn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(255, 138, 61, 0.4);
-  background: linear-gradient(135deg, var(--accent-hover), #ff7a3d);
+  box-shadow: 0 4px 16px rgba(126, 203, 138, 0.4);
+  background: linear-gradient(135deg, var(--accent-hover), #7abc70);
 }
 
 #addListBtn:active {
   transform: translateY(0);
-  box-shadow: 0 2px 8px rgba(255, 138, 61, 0.3);
+  box-shadow: 0 2px 8px rgba(126, 203, 138, 0.3);
 }
 
 /* Inputs */
@@ -397,7 +397,7 @@ th {
 #inputDescrip:focus,
 #inputAmount:focus {
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(255, 138, 61, 0.15);
+  box-shadow: 0 0 0 3px rgba(126, 203, 138, 0.15);
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -501,7 +501,7 @@ input::placeholder {
 #histAmount:focus,
 #histDate:focus {
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(255, 138, 61, 0.15);
+  box-shadow: 0 0 0 3px rgba(126, 203, 138, 0.15);
   background: rgba(255, 255, 255, 0.08);
 }
 
