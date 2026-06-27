@@ -304,7 +304,8 @@ th {
 
 /* Buttons shared */
 #resetBtn,
-#histResetBtn {
+#histResetBtn,
+#proteinResetBtn {
   height: 32px;
   width: 32px;
   border: 1px solid var(--border-color);
@@ -320,13 +321,15 @@ th {
 }
 
 #resetBtn:hover,
-#histResetBtn:hover {
+#histResetBtn:hover,
+#proteinResetBtn:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
 }
 
 #resetBtn:active,
-#histResetBtn:active {
+#histResetBtn:active,
+#proteinResetBtn:active {
   transform: scale(0.92);
 }
 
@@ -379,7 +382,8 @@ th {
 
 /* Inputs */
 #inputDescrip,
-#inputAmount {
+#inputAmount,
+#proteinAmount {
   background: var(--bg-input);
   border: 1px solid var(--border-color);
   height: 36px;
@@ -395,7 +399,8 @@ th {
 }
 
 #inputDescrip:focus,
-#inputAmount:focus {
+#inputAmount:focus,
+#proteinAmount:focus {
   border-color: var(--border-focus);
   box-shadow: 0 0 0 3px rgba(126, 203, 138, 0.15);
   background: rgba(255, 255, 255, 0.08);
@@ -404,6 +409,17 @@ th {
 input::placeholder {
   color: var(--text-muted);
   font-size: 0.8rem;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Entries list */
@@ -432,6 +448,77 @@ input::placeholder {
 
 .entries-list ul li:first-child {
   margin-top: 0;
+}
+
+/* Protein counter */
+.protein-counter {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  margin-top: 16px;
+  max-width: 780px;
+  width: 100%;
+  padding: 16px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.protein-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.protein-count {
+  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.protein-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+#proteinAmount {
+  max-width: 130px;
+}
+
+#proteinAddBtn {
+  height: 36px;
+  padding: 0 20px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent), #58b870);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(126, 203, 138, 0.3);
+}
+
+#proteinAddBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(126, 203, 138, 0.4);
+  background: linear-gradient(135deg, var(--accent-hover), #7abc70);
+}
+
+#proteinAddBtn:active {
+  transform: translateY(0);
+}
+
+#proteinResetBtn img {
+  width: 16px;
+  height: 16px;
 }
 
 /* History section */
@@ -765,7 +852,8 @@ li button:hover {
   }
 
   #inputDescrip,
-  #inputAmount {
+  #inputAmount,
+  #proteinAmount {
     max-width: 100%;
     flex: 1 1 100%;
   }
@@ -776,6 +864,19 @@ li button:hover {
 
   #addListBtn {
     width: 100%;
+  }
+
+  .protein-counter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .protein-actions {
+    justify-content: space-between;
+  }
+
+  #proteinAddBtn {
+    flex: 1;
   }
 
   .histForm {

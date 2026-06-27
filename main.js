@@ -4,6 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputAmount = document.getElementById("inputAmount");
   const entriesList = document.querySelector(".entries-list ul");
   const statusDisplay = document.querySelector(".status");
+  const proteinCount = document.getElementById("proteinCount");
+  const proteinAmount = document.getElementById("proteinAmount");
+  const proteinAddBtn = document.getElementById("proteinAddBtn");
+  const proteinResetBtn = document.getElementById("proteinResetBtn");
 
   const histAddBtn = document.getElementById("histAddBtn");
   const histDate = document.getElementById("histDate");
@@ -12,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const histResetBtn = document.getElementById("histResetBtn");
 
   let totalCalories = 0;
+  let proteinTotal = 0;
   let entries = [];
   let historyEntries = [];
 
@@ -37,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Save and load state
   function saveState() {
-    const state = { entries, totalCalories, historyEntries };
+    const state = { entries, totalCalories, proteinTotal, historyEntries };
     setCookie("calorieTrackerState", JSON.stringify(state), 30);
   }
 
@@ -53,6 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
         renderEntries();
         updateStatus();
       }
+      proteinTotal = state.proteinTotal || 0;
+      updateProteinCount();
       if (state.historyEntries && Array.isArray(state.historyEntries)) {
         historyEntries = state.historyEntries;
         renderHistoryEntries();
@@ -70,6 +77,10 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       statusDisplay.style.color = "#e53c39ff"; // bright green
     }
+  }
+
+  function updateProteinCount() {
+    proteinCount.textContent = `${proteinTotal}`;
   }
 
   //Reset Button — custom modal confirmation
@@ -199,6 +210,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  proteinAddBtn.addEventListener("click", () => {
+    const amount = parseFloat(proteinAmount.value.trim()) || 0;
+
+    proteinTotal += amount;
+    updateProteinCount();
+    saveState();
+
+    proteinAmount.value = "";
+  });
+
+  proteinAmount.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      proteinAddBtn.click();
+    }
+  });
+
+  proteinResetBtn.addEventListener("click", () => {
+    proteinTotal = 0;
+    updateProteinCount();
+    saveState();
+  });
+
   // --- History Entries ---
 
   // Get the table body for history entries
@@ -291,6 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Load saved data on start
   loadState();
+  updateProteinCount();
 });
 
 // Hidden Menu
