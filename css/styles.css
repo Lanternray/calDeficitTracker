@@ -450,6 +450,36 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-top: 0;
 }
 
+/* Intake counter */
+.intake-counter {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  margin-top: 16px;
+  max-width: 780px;
+  width: 100%;
+  padding: 16px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.intake-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.intake-count {
+  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
 /* Protein counter */
 .protein-counter {
   border: 1px solid var(--border-color);
@@ -864,6 +894,11 @@ li button:hover {
 
   #addListBtn {
     width: 100%;
+  }
+
+  .intake-counter {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .protein-counter {

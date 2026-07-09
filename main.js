@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const histEntries = document.querySelector(".histEntries");
   const histResetBtn = document.getElementById("histResetBtn");
 
+  const intakeCount = document.getElementById("intakeCount");
+
   let totalCalories = 0;
   let proteinTotal = 0;
   let entries = [];
@@ -64,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         historyEntries = state.historyEntries;
         renderHistoryEntries();
       }
+      updateIntakeCount();
     } catch (e) {
       console.error("Error loading saved state:", e);
     }
@@ -75,12 +78,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (totalCalories < 1) {
       statusDisplay.style.color = "#30b74bff";
     } else {
-      statusDisplay.style.color = "#e53c39ff"; // bright green
+      statusDisplay.style.color = "#e53c39ff";
     }
   }
 
   function updateProteinCount() {
     proteinCount.textContent = `${proteinTotal}`;
+  }
+
+  function updateIntakeCount() {
+    const sum = entries.reduce((total, e) => total + (e.amount > 0 ? e.amount : 0), 0);
+    intakeCount.textContent = `${sum}`;
   }
 
   //Reset Button — custom modal confirmation
@@ -108,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     entriesList.innerHTML = "";
 
     updateStatus();
+    updateIntakeCount();
     saveState();
   }
 
@@ -170,6 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
       totalCalories -= amount;
       entries = entries.filter(e => !(e.description === description && e.amount === amount));
       updateStatus();
+      updateIntakeCount();
       saveState();
     });
 
@@ -196,6 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     totalCalories += amount;
     updateStatus();
+    updateIntakeCount();
     saveState();
 
     inputDescrip.value = "";
@@ -205,8 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Added "enter" key to trigger new entry
   inputAmount.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
-      event.preventDefault(); // prevents accidental form submission or reload
-      addListBtn.click();     // perform the same action as clicking Add Entry
+      event.preventDefault();
+      addListBtn.click();
     }
   });
 
@@ -298,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const date = histDate.value.trim();
     const amount = parseFloat(histAmount.value.trim()) || 0;
 
-    if (!date) return; // don't add if date is empty
+    if (!date) return;
 
     const entry = { date, amount };
     historyEntries.push(entry);
@@ -326,6 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Load saved data on start
   loadState();
   updateProteinCount();
+  updateIntakeCount();
 });
 
 // Hidden Menu
