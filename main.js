@@ -22,6 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let proteinTotal = 0;
   let entries = [];
   let historyEntries = [];
+  let nextEntryId = 1;
+  let nextHistoryId = 1;
 
   // Cookies for save state
   function setCookie(name, value, days = 30) {
@@ -45,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Save and load state
   function saveState() {
-    const state = { entries, totalCalories, proteinTotal, historyEntries };
+    const state = { entries, totalCalories, proteinTotal, historyEntries, nextEntryId, nextHistoryId };
     setCookie("calorieTrackerState", JSON.stringify(state), 30);
   }
 
@@ -57,6 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const state = JSON.parse(cookieValue);
       if (state.entries && Array.isArray(state.entries)) {
         entries = state.entries;
+        // Ensure all loaded entries have unique IDs (for backward compatibility with saved data from before IDs were added)
+        let maxId = 0;
+        entries.forEach(e => {
+          if (e.id == null) {
+            e.id = nextEntryId++;
+          } else if (e.id >= maxId) {
+            maxId = e.id + 1;
+          }
+        });
+        if (maxId > nextEntryId) nextEntryId = maxId;
         totalCalories = state.totalCalories || 0;
         renderEntries();
         updateStatus();
@@ -65,8 +77,21 @@ document.addEventListener("DOMContentLoaded", () => {
       updateProteinCount();
       if (state.historyEntries && Array.isArray(state.historyEntries)) {
         historyEntries = state.historyEntries;
+        // Ensure all loaded history entries have unique IDs
+        let maxHistId = 0;
+        historyEntries.forEach(e => {
+          if (e.id == null) {
+            e.id = nextHistoryId++;
+          } else if (e.id >= maxHistId) {
+            maxHistId = e.id + 1;
+          }
+        });
+        if (maxHistId > nextHistoryId) nextHistoryId = maxHistId;
         renderHistoryEntries();
       }
+      // Restore ID counters from saved state if present
+      if (state.nextEntryId && state.nextEntryId > nextEntryId) nextEntryId = state.nextEntryId;
+      if (state.nextHistoryId && state.nextHistoryId > nextHistoryId) nextHistoryId = state.nextHistoryId;
       updateIntakeCount();
     } catch (e) {
       console.error("Error loading saved state:", e);
@@ -158,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   modalNo.addEventListener("click", hideResetModal);
 
   // Entries
-  function createEntryElement(description, amount) {
+  function createEntryElement(id, description, amount) {
     const li = document.createElement("li");
     li.style.display = "flex";
     li.style.alignItems = "center";
@@ -191,8 +216,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Remove logic
     removeBtn.addEventListener("click", () => {
       entriesList.removeChild(li);
-      totalCalories -= amount;
-      entries = entries.filter(e => !(e.description === description && e.amount === amount));
+      const entry = entries.find(e => e.id === id);
+      if (entry) totalCalories -= entry.amount;
+      entries = entries.filter(e => e.id !== id);
       updateStatus();
       updateIntakeCount();
       saveState();
@@ -206,7 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderEntries() {
     entriesList.innerHTML = "";
     entries.forEach(entry => {
-      createEntryElement(entry.description, entry.amount);
+      createEntryElement(entry.id, entry.description, entry.amount);
     });
   }
 
@@ -215,9 +241,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const description = inputDescrip.value.trim();
     const amount = parseFloat(inputAmount.value.trim()) || 0;
 
-    const entry = { description, amount };
+    const entry = { id: nextEntryId++, description, amount };
     entries.push(entry);
-    createEntryElement(description, amount);
+    createEntryElement(entry.id, description, amount);
 
     totalCalories += amount;
     updateStatus();
@@ -266,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return document.querySelector(".histEntries-list");
   }
 
-  function createHistoryEntryElement(date, amount) {
+  function createHistoryEntryElement(id, date, amount) {
     const row = document.createElement("tr");
     row.style.color = "hsl(0,0%,80%)";
 
@@ -301,7 +327,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Remove logic
     removeBtn.addEventListener("click", () => {
       getHistEntriesList().removeChild(row);
-      historyEntries = historyEntries.filter(e => !(e.date === date && e.amount === amount));
+      historyEntries = historyEntries.filter(e => e.id !== id);
       saveState();
     });
 
@@ -315,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const list = getHistEntriesList();
     list.innerHTML = "";
     historyEntries.forEach(entry => {
-      const row = createHistoryEntryElement(entry.date, entry.amount);
+      const row = createHistoryEntryElement(entry.id, entry.date, entry.amount);
       list.appendChild(row);
     });
   }
@@ -326,10 +352,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!date) return;
 
-    const entry = { date, amount };
+    const entry = { id: nextHistoryId++, date, amount };
     historyEntries.push(entry);
 
-    const row = createHistoryEntryElement(date, amount);
+    const row = createHistoryEntryElement(entry.id, date, amount);
     getHistEntriesList().appendChild(row);
 
     saveState();
