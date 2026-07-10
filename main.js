@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const histEntries = document.querySelector(".histEntries");
   const histResetBtn = document.getElementById("histResetBtn");
 
+  const tefCount = document.getElementById("tefCount");
   const intakeCount = document.getElementById("intakeCount");
 
   let totalCalories = 0;
@@ -73,9 +74,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   //Status
+  function getTefValue() {
+    const sum = entries.reduce((total, e) => total + (e.amount > 0 ? e.amount : 0), 0);
+    return Math.round(sum * 0.1);
+  }
+
   function updateStatus() {
-    statusDisplay.textContent = `${totalCalories}`;
-    if (totalCalories < 1) {
+    const tef = getTefValue();
+    const adjusted = totalCalories - tef;
+    statusDisplay.textContent = `${adjusted}`;
+    if (adjusted < 1) {
       statusDisplay.style.color = "#30b74bff";
     } else {
       statusDisplay.style.color = "#e53c39ff";
@@ -86,9 +94,16 @@ document.addEventListener("DOMContentLoaded", () => {
     proteinCount.textContent = `${proteinTotal}`;
   }
 
+  function updateTefCount() {
+    const sum = entries.reduce((total, e) => total + (e.amount > 0 ? e.amount : 0), 0);
+    const tef = Math.round(sum * 0.1);
+    tefCount.textContent = `${tef}`;
+  }
+
   function updateIntakeCount() {
     const sum = entries.reduce((total, e) => total + (e.amount > 0 ? e.amount : 0), 0);
     intakeCount.textContent = `${sum}`;
+    updateTefCount();
   }
 
   //Reset Button — custom modal confirmation
