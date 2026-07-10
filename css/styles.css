@@ -962,6 +962,7 @@ li button:hover {
     width: 95%;
     font-size: 13px;
     padding: 14px;
+    max-height: 500px;
   }
 
   .modal-box {

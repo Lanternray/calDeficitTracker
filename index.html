@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
     <title>Calorie Deficit Tracker</title>
 </head>
+
 <body>
 
     <div class="header">
@@ -25,26 +27,20 @@
             </div>
 
             <div class="hidden-menu">
-                <p>
-                    <strong>The goal for a calorie deficit is to be burning more calories than taken in.</strong>
+                <p> Aim for a calorie deficit around 300-500 for losing 1 lb fat per week.<br>
+                    - Add items consumed and its calories.<br>
+                    - Add activity burned and its negative (-) calories.
                 </p>
-                <p>
-                    Add items consumed and its calories.<br>
-                    Add activity burned and its negative (-) calories.
-                </p>
-
+                <br>
+                <!-- disabled table for now 
                 <table>
                     <thead>
                         <tr>
                             <th>Common Activities</th>
-                            <th>Calories</th>
+                            <th>Calories <i>(example only, refer to Calculator below for your estimates)</i></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Baseline *</td>
-                            <td>-1700</td>
-                        </tr>
                         <tr>
                             <td>Mow Lawn (60 min)</td>
                             <td>-350</td>
@@ -63,22 +59,40 @@
                         </tr>
                     </tbody>
                 </table>
+                -->
 
                 <p>
-                    Check out this great
+                    Use this
                     <a href="https://www.calculator.net/calories-burned-calculator.html" target="_blank">
                         Calculator
                     </a>
                     for estimates on calories burned by activity!
                 </p>
                 <p>
-                    * You can use this
+                    Use this
                     <a href="https://www.calculator.net/bmr-calculator.html" target="_blank" rel="noreferrer">
                         BMR calculator
                     </a>
                     to set a baseline of calories burned on a daily basis.
                 </p>
-            </div>
+                <p>
+                    Use this <a href="" target="_blank">NEAT calculator</a> for estimates on NEAT based on your typical
+                    day.
+                </p>
+                <br>
+
+                <p>
+                    <b><u>INSTRUCTION</u></b><br>
+                    Each day, enter your <b>BMR</b> and <b>NEAT</b> values calculated above. You should only have to calculate this once and can reuse the same values each day as a baseline. You'll only need to recalculate if there's a change in weight and age.<br>
+                    Your <b>BMR</b> is important, because this is the <i>absolute minimum</i> amount of calories you need to consume on a daily basis for your vital organs to function. When you don't take in enough calories, your body starts to break down protein instead for fuel which can result in muscle loss.<br>
+                    If you're not taking in enough calories, your body triggers cortisol (<i>stress hormone</i>) and actually PROTECTS your bdoy fat because it thinks it needs to save it for emergency in order to keep vital organs functioning.<br>
+                    So if trying to lose body fat, aim for a <b>Calorie Intake</b> around <b>+300 of your BMR</b> - then aim for a <b>deficit between 300-500</b>.<br><br>
+                    
+                    <b>TEF</b><br>
+                    TEF (thermic effect of food), are the calories your body burns to digest, absorb, and metabolize the food you eat. It generally acounts for 10% of your total calorie intake. This is automatically calculated for you into the deficit amount.
+                </p>
+            </div>  
+
 
             <div class="entries">
                 <div class="entryForm">
@@ -172,4 +186,5 @@
     <script src="main.js" defer></script>
 
 </body>
+
 </html>
