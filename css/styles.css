@@ -333,6 +333,33 @@ th {
   transform: scale(0.92);
 }
 
+/* Save button (text-based) */
+#saveBtn {
+  height: 36px;
+  padding: 0 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent), #58b870);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(126, 203, 138, 0.3);
+  white-space: nowrap;
+}
+
+#saveBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(126, 203, 138, 0.4);
+  background: linear-gradient(135deg, var(--accent-hover), #7abc70);
+}
+
+#saveBtn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(126, 203, 138, 0.3);
+}
+
 /* Entries card */
 .entries {
   border: 1px solid var(--border-color);
@@ -834,6 +861,28 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .modal-btn-no:active {
   transform: scale(0.96);
+}
+
+/* Summary modal (wider for entries list) */
+.summary-modal-box {
+  max-width: 420px;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.summary-content {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Clickable history row cells hint */
+.histTable tbody tr td:not(:first-child) {
+  transition: background var(--transition);
+}
+
+.histTable tbody tr td:not(:first-child):hover {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* Footer */

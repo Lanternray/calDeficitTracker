@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const histEntries = document.querySelector(".histEntries");
   const histResetBtn = document.getElementById("histResetBtn");
 
+  const saveBtn = document.getElementById("saveBtn");
+
   const tefCount = document.getElementById("tefCount");
   const intakeCount = document.getElementById("intakeCount");
 
@@ -292,9 +294,10 @@ document.addEventListener("DOMContentLoaded", () => {
     return document.querySelector(".histEntries-list");
   }
 
-  function createHistoryEntryElement(id, date, amount) {
+  function createHistoryEntryElement(id, date, amount, savedEntries) {
     const row = document.createElement("tr");
     row.style.color = "hsl(0,0%,80%)";
+    row.style.cursor = savedEntries && savedEntries.length > 0 ? "pointer" : "default";
 
     // Remove button cell
     const removeCell = document.createElement("td");
@@ -325,11 +328,19 @@ document.addEventListener("DOMContentLoaded", () => {
     amountCell.className = amount > 0 ? "histAmount-positive" : "histAmount-negative";
 
     // Remove logic
-    removeBtn.addEventListener("click", () => {
+    removeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
       getHistEntriesList().removeChild(row);
       historyEntries = historyEntries.filter(e => e.id !== id);
       saveState();
     });
+
+    // Click on row to show summary popup (if there are saved entries)
+    if (savedEntries && savedEntries.length > 0) {
+      const showSummary = () => showEntrySummary(date, amount, savedEntries);
+      dateCell.addEventListener("click", showSummary);
+      amountCell.addEventListener("click", showSummary);
+    }
 
     row.appendChild(removeCell);
     row.appendChild(dateCell);
@@ -341,7 +352,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const list = getHistEntriesList();
     list.innerHTML = "";
     historyEntries.forEach(entry => {
-      const row = createHistoryEntryElement(entry.id, entry.date, entry.amount);
+      const saved = entry.savedEntries || [];
+      const row = createHistoryEntryElement(entry.id, entry.date, entry.amount, saved);
       list.appendChild(row);
     });
   }
@@ -355,7 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const entry = { id: nextHistoryId++, date, amount };
     historyEntries.push(entry);
 
-    const row = createHistoryEntryElement(entry.id, date, amount);
+    const row = createHistoryEntryElement(entry.id, date, amount, []);
     getHistEntriesList().appendChild(row);
 
     saveState();
@@ -374,6 +386,95 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // History reset
   histResetBtn.addEventListener("click", () => showResetModal("history"));
+
+  // --- Save button & Summary Modal ---
+
+  const summaryModal = document.getElementById("summaryModal");
+  const summaryDateTitle = document.getElementById("summaryDateTitle");
+  const summaryContent = document.getElementById("summaryContent");
+  const summaryCloseBtn = document.getElementById("summaryCloseBtn");
+
+  function showEntrySummary(date, amount, savedEntries) {
+    const sign = amount >= 0 ? "+" : "";
+    summaryDateTitle.textContent = `Entries for ${date} (${sign}${amount})`;
+
+    summaryContent.innerHTML = "";
+
+    if (!savedEntries || savedEntries.length === 0) {
+      summaryContent.innerHTML = "<p style='text-align:center;color:var(--text-muted);'>No entries saved for this record.</p>";
+    } else {
+      const list = document.createElement("ul");
+      list.style.listStyle = "none";
+      list.style.padding = "0";
+      list.style.margin = "0";
+
+      savedEntries.forEach(entry => {
+        const li = document.createElement("li");
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.padding = "6px 0";
+        li.style.borderBottom = "1px solid var(--border-color)";
+        li.style.color = "var(--text-primary)";
+
+        const descSpan = document.createElement("span");
+        descSpan.textContent = entry.description || "(no description)";
+
+        const amountSpan = document.createElement("span");
+        const val = parseFloat(entry.amount) || 0;
+        amountSpan.textContent = val >= 0 ? `+${val}` : `${val}`;
+        amountSpan.style.color = val > 0 ? "var(--success)" : "var(--danger)";
+        amountSpan.style.fontWeight = "600";
+
+        li.appendChild(descSpan);
+        li.appendChild(amountSpan);
+        list.appendChild(li);
+      });
+
+      summaryContent.appendChild(list);
+    }
+
+    summaryModal.style.display = "flex";
+  }
+
+  function hideEntrySummary() {
+    summaryModal.style.display = "none";
+  }
+
+  summaryCloseBtn.addEventListener("click", hideEntrySummary);
+
+  // Close summary modal when clicking outside the box
+  summaryModal.addEventListener("click", (e) => {
+    if (e.target === summaryModal) hideEntrySummary();
+  });
+
+  // Save button: records current status, date, and all entries to history
+  saveBtn.addEventListener("click", () => {
+    const statusValue = parseInt(statusDisplay.textContent, 10) || 0;
+    const now = new Date();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const today = `${month}/${day}`;
+
+    // Snapshot of all current entries
+    const savedEntries = entries.map(e => ({
+      description: e.description,
+      amount: e.amount
+    }));
+
+    const entry = {
+      id: nextHistoryId++,
+      date: today,
+      amount: statusValue,
+      savedEntries: savedEntries
+    };
+
+    historyEntries.push(entry);
+
+    const row = createHistoryEntryElement(entry.id, today, statusValue, savedEntries);
+    getHistEntriesList().appendChild(row);
+
+    saveState();
+  });
 
   // Load saved data on start
   loadState();
