@@ -422,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const amountSpan = document.createElement("span");
         const val = parseFloat(entry.amount) || 0;
         amountSpan.textContent = val >= 0 ? `+${val}` : `${val}`;
-        amountSpan.style.color = val > 0 ? "var(--success)" : "var(--danger)";
+        amountSpan.style.color = val > 0 ? "var(--danger)" : "var(--success)";
         amountSpan.style.fontWeight = "600";
 
         li.appendChild(descSpan);
