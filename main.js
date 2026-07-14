@@ -27,38 +27,27 @@ document.addEventListener("DOMContentLoaded", () => {
   let nextEntryId = 1;
   let nextHistoryId = 1;
 
-  // Cookies for save state
-  function setCookie(name, value, days = 30) {
-    const d = new Date();
-    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
-    const expires = "expires=" + d.toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)};${expires};path=/`;
+  // localStorage for save state
+  function setLocalStorage(name, value) {
+    localStorage.setItem(name, value);
   }
 
-  function getCookie(name) {
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const parts = decodedCookie.split(";");
-    for (let part of parts) {
-      part = part.trim();
-      if (part.startsWith(name + "=")) {
-        return part.substring(name.length + 1);
-      }
-    }
-    return "";
+  function getLocalStorage(name) {
+    return localStorage.getItem(name) || "";
   }
 
   // Save and load state
   function saveState() {
     const state = { entries, totalCalories, proteinTotal, historyEntries, nextEntryId, nextHistoryId };
-    setCookie("calorieTrackerState", JSON.stringify(state), 30);
+    setLocalStorage("calorieTrackerState", JSON.stringify(state));
   }
 
   function loadState() {
-    const cookieValue = getCookie("calorieTrackerState");
-    if (!cookieValue) return;
+    const storedValue = getLocalStorage("calorieTrackerState");
+    if (!storedValue) return;
 
     try {
-      const state = JSON.parse(cookieValue);
+      const state = JSON.parse(storedValue);
       if (state.entries && Array.isArray(state.entries)) {
         entries = state.entries;
         // Ensure all loaded entries have unique IDs (for backward compatibility with saved data from before IDs were added)
