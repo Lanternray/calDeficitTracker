@@ -27,6 +27,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let nextEntryId = 1;
   let nextHistoryId = 1;
 
+  const bmrMessageBox = document.querySelector(".bmr-message-box");
+
+  function updateBmrMessage() {
+    const bmrEntry = entries.find(e => e.description.toUpperCase() === "BMR");
+    if (bmrEntry) {
+      const intakeCount = parseInt(document.getElementById("intakeCount").textContent, 10) || 0;
+      const amount = bmrEntry.amount - 200 + intakeCount;
+      if (amount < 0) {
+        bmrMessageBox.textContent = `You need to eat ${Math.abs(amount)} more calories!`;
+        bmrMessageBox.classList.add("visible");
+      } else {
+        bmrMessageBox.classList.remove("visible");
+      }
+    } else {
+      bmrMessageBox.classList.remove("visible");
+    }
+  }
+
   // localStorage for save state
   function setLocalStorage(name, value) {
     localStorage.setItem(name, value);
@@ -63,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         totalCalories = state.totalCalories || 0;
         renderEntries();
         updateStatus();
+        updateBmrMessage();
       }
       proteinTotal = state.proteinTotal || 0;
       updateProteinCount();
@@ -148,6 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateStatus();
     updateIntakeCount();
+    updateBmrMessage();
     saveState();
   }
 
@@ -212,6 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
       entries = entries.filter(e => e.id !== id);
       updateStatus();
       updateIntakeCount();
+      updateBmrMessage();
       saveState();
     });
 
@@ -239,6 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
     totalCalories += amount;
     updateStatus();
     updateIntakeCount();
+    updateBmrMessage();
     saveState();
 
     inputDescrip.value = "";

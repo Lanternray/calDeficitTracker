@@ -241,6 +241,27 @@ th {
   width: 100%;
 }
 
+/* BMR message box */
+.bmr-message-box {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  margin-top: 28px;
+  max-width: 780px;
+  width: 100%;
+  padding: 16px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: none;
+}
+
+.bmr-message-box.visible {
+  display: block;
+}
+
 /* Status section */
 .status-section {
   margin-top: 40px;
