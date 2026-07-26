@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
         totalCalories = state.totalCalories || 0;
         renderEntries();
         updateStatus();
+        updateIntakeCount();
         updateBmrMessage();
       }
       proteinTotal = state.proteinTotal || 0;
@@ -102,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // Restore ID counters from saved state if present
       if (state.nextEntryId && state.nextEntryId > nextEntryId) nextEntryId = state.nextEntryId;
       if (state.nextHistoryId && state.nextHistoryId > nextHistoryId) nextHistoryId = state.nextHistoryId;
-      updateIntakeCount();
     } catch (e) {
       console.error("Error loading saved state:", e);
     }
