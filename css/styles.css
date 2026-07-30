@@ -725,7 +725,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-spacing: 0;
   margin-top: 12px;
   table-layout: fixed;
-  border: 1px solid var(--border-color);
+  border: none;
   border-radius: var(--radius-md);
   overflow: hidden;
 }
