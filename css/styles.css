@@ -634,8 +634,14 @@ input[type="number"]::-webkit-outer-spin-button {
   color: var(--accent);
   display: flex;
   flex-direction: column;
+  max-width: 780px;
   width: 100%;
-  padding: 24px 4px 0;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin-top: 28px;
 }
 
 .histTitle {
