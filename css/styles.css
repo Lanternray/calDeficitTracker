@@ -31,7 +31,7 @@ input::placeholder { color:#c0c8cc; }
 #resetBtn,#histResetBtn,#proteinResetBtn { width:46px; min-height:36px; display:grid; place-items:center; border:1px solid #87969d; border-radius:9px; background:#3f4b52; cursor:pointer; }
 #resetBtn img,#histResetBtn img,#proteinResetBtn img { width:23px; filter:brightness(2) grayscale(1); }
 .entries-list { padding:8px 2px 0; }
-.entries-list ul { list-style:none; }
+.entries-list ul { list-style:none; padding:0; }
 .entries-list li { display:flex; align-items:center; gap:10px; padding:7px 4px; color:#dce2e3; border-bottom:1px solid rgba(190,207,213,.15); font-size:14px; }
 li button,.histTable td button { display:grid; place-items:center; border:0; background:transparent; cursor:pointer; opacity:.75; }
 li button img,.histTable td button img { width:16px; }
@@ -47,8 +47,7 @@ li button img,.histTable td button img { width:16px; }
 .histEntries { padding:12px; }
 .histForm { display:flex; gap:8px; margin-bottom:12px; }
 #histDate,#histAmount { min-height:34px; min-width:0; flex:1; padding:0 9px; color:var(--text); border:1px solid var(--line); border-radius:7px; background:#414d55; font-size:14px; }
-#histAddBtn { min-width:36px; border:0; border-radius:7px; background:var(--mint); cursor:pointer;}
-#histAddBtn img { width:17px; }
+#histAddBtn { min-width:36px; border:0; border-radius:7px; background:var(--mint); cursor:pointer; color:#5b5c5c; font-weight:700; }
 .histTable { width:100%; border-collapse:collapse; }
 .histTable th,.histTable td { padding:12px 9px; text-align:left; border-bottom:1px solid var(--line); }
 .histTable th { color:#eaf0f1; font-size:.8rem; text-transform:uppercase; }
