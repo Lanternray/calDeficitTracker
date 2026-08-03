@@ -25,7 +25,13 @@
             <div class="bmr-message-box"></div>
 
             <div class="status-section">
-                <div class="status">0</div>
+                <div class="status" role="status" aria-live="polite" style="--progress: 0%">
+                    <div class="status-inner">
+                        <span class="status-value">0</span>
+                        <span class="status-label">Current Deficit</span>
+                    </div>
+                </div>
+                <p class="progress-caption" id="progressCaption">Add a BMR entry to start tracking your daily intake.</p>
             </div>
 
             <div class="hidden-menu">
@@ -101,12 +107,14 @@
             <div class="entries">
                 <div class="entryForm">
                     <button id="addListBtn">Add Entry</button>
-                    <input type="text" id="inputDescrip" placeholder="Description">
-                    <input type="number" id="inputAmount" placeholder="Amount">
-                    <button id="saveBtn" title="Save entries to history">Save to History</button>
-                    <button id="resetBtn" title="Reset entries">
-                        <img src="icons/reset.svg" alt="reset">
-                    </button>
+                    <input type="text" id="inputDescrip" placeholder="Describe activity or food">
+                    <input type="number" id="inputAmount" placeholder="Calorie amount">
+                    <div class="entry-actions">
+                        <button id="saveBtn" title="Save entries to history">Save to History</button>
+                        <button id="resetBtn" title="Reset entries">
+                            <img src="icons/reset.svg" alt="reset">
+                        </button>
+                    </div>
                 </div>
 
                 <div class="entries-list">
@@ -135,7 +143,7 @@
                 </div>
                 <div class="protein-actions">
                     <input type="number" id="proteinAmount" placeholder="Amount">
-                    <button id="proteinAddBtn">Add</button>
+                    <button id="proteinAddBtn">+</button>
                     <button id="proteinResetBtn" title="Reset protein">
                         <img src="icons/reset.svg" alt="reset">
                     </button>

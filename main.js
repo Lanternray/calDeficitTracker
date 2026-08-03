@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const inputAmount = document.getElementById("inputAmount");
   const entriesList = document.querySelector(".entries-list ul");
   const statusDisplay = document.querySelector(".status");
+  const statusValue = document.querySelector(".status-value");
+  const progressCaption = document.getElementById("progressCaption");
   const proteinCount = document.getElementById("proteinCount");
   const proteinAmount = document.getElementById("proteinAmount");
   const proteinAddBtn = document.getElementById("proteinAddBtn");
@@ -33,7 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const bmrEntry = entries.find(e => e.description.toUpperCase() === "BMR");
     if (bmrEntry) {
       const intakeCount = parseInt(document.getElementById("intakeCount").textContent, 10) || 0;
-      const amount = bmrEntry.amount - 200 + intakeCount;
+      const target = Math.max(0, Math.abs(bmrEntry.amount) + 200);
+      const amount = intakeCount - target;
+      const progress = target ? Math.min(100, Math.max(0, (intakeCount / target) * 100)) : 0;
+      statusDisplay.style.setProperty("--progress", `${progress}%`);
+      progressCaption.textContent = target
+        ? `${Math.round(progress)}% of your ${target.toLocaleString()} calorie intake target`
+        : "Add a BMR value below -200 to start tracking your daily intake.";
       if (amount < 0) {
         bmrMessageBox.textContent = `You need to eat ${Math.abs(amount)} more calories!`;
         bmrMessageBox.classList.add("visible");
@@ -42,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       bmrMessageBox.classList.remove("visible");
+      statusDisplay.style.setProperty("--progress", "0%");
+      progressCaption.textContent = "Add a BMR entry to start tracking your daily intake.";
     }
   }
 
@@ -117,11 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateStatus() {
     const tef = getTefValue();
     const adjusted = totalCalories - tef;
-    statusDisplay.textContent = `${adjusted}`;
+    statusValue.textContent = `${adjusted}`;
     if (adjusted < 1) {
-      statusDisplay.style.color = "#30b74bff";
+      statusValue.style.color = "#77d6a9";
     } else {
-      statusDisplay.style.color = "#e53c39ff";
+      statusValue.style.color = "#e88957";
     }
   }
 
@@ -460,7 +470,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Save button: records current status, date, and all entries to history
   saveBtn.addEventListener("click", () => {
-    const statusValue = parseInt(statusDisplay.textContent, 10) || 0;
+    const currentStatusValue = parseInt(statusValue.textContent, 10) || 0;
     const now = new Date();
     const month = String(now.getMonth() + 1).padStart(2, "0");
     const day = String(now.getDate()).padStart(2, "0");
@@ -475,13 +485,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const entry = {
       id: nextHistoryId++,
       date: today,
-      amount: statusValue,
+      amount: currentStatusValue,
       savedEntries: savedEntries
     };
 
     historyEntries.push(entry);
 
-    const row = createHistoryEntryElement(entry.id, today, statusValue, savedEntries);
+    const row = createHistoryEntryElement(entry.id, today, currentStatusValue, savedEntries);
     getHistEntriesList().appendChild(row);
 
     saveState();
