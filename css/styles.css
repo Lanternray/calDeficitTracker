@@ -22,8 +22,9 @@ button,input { font:inherit; }
 .entries { width:min(100%, 664px); padding:14px; border:1px solid var(--line); border-radius:15px; background:linear-gradient(135deg,rgba(61,72,81,.88),rgba(38,46,51,.91)); box-shadow:var(--shadow); }
 .entryForm { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 #addListBtn { grid-column:1/-1; min-height:44px; cursor:pointer; border:1px solid rgba(135,224,213,.58); border-radius:10px; color:#f5ffff; font-size:1.05rem; font-weight:700; text-transform:uppercase; background:linear-gradient(90deg,#04636c,#08747a); box-shadow:inset 0 1px rgba(255,255,255,.16); }
-#inputDescrip,#inputAmount { width:100%; min-height:44px; padding:0 14px; color:var(--text); border:1px solid #7b8993; border-radius:10px; outline:0; background:rgba(86,96,105,.72); font-size: 14px; }
-#inputDescrip:focus,#inputAmount:focus { border-color:var(--mint); box-shadow:0 0 0 3px rgba(119,214,169,.14); }
+#inputDescrip,#inputAmount,#inputProtein { width:100%; min-height:44px; padding:0 14px; color:var(--text); border:1px solid #7b8993; border-radius:10px; outline:0; background:rgba(86,96,105,.72); font-size: 14px; }
+#inputDescrip:focus,#inputAmount:focus,#inputProtein:focus { border-color:var(--mint); box-shadow:0 0 0 3px rgba(119,214,169,.14); }
+#inputDescrip { grid-column:1 / -1; }
 input::placeholder { color:#c0c8cc; }
 .entry-actions { grid-column:1 / -1; display:flex; justify-content:flex-start; align-items:center; gap:10px; padding-top:2px; }
 #saveBtn { min-height:38px; padding:0 26px; border:1px solid rgba(137,224,215,.6); border-radius:9px; color:#f4ffff; background:linear-gradient(135deg,#0b7178,#095a63); box-shadow:0 3px 10px rgba(0,0,0,.22); cursor:pointer; }
@@ -36,11 +37,28 @@ input::placeholder { color:#c0c8cc; }
 li button,.histTable td button { display:grid; place-items:center; border:0; background:transparent; cursor:pointer; opacity:.75; }
 li button img,.histTable td button img { width:16px; }
 .intake-counter,.tef-counter,.protein-counter { width:min(100%,664px); margin-top:14px; padding:13px 18px; border:1px solid var(--line); border-radius:12px; background:rgba(47,57,64,.78); display:flex; align-items:center; justify-content:space-between; }
+.protein-counter { flex-wrap:wrap; }
 .intake-label,.tef-label,.protein-label { font-size:.78rem; color:var(--muted); text-transform:uppercase; font-weight:700; }
 .intake-count,.tef-count,.protein-count { margin-top:3px; color:var(--mint); font-weight:800; font-size:1.55rem; }
+.protein-header { display:flex; align-items:center; gap:10px; }
+.protein-history-toggle { width:30px; height:30px; display:grid; place-items:center; border:1px solid var(--line); border-radius:7px; background:#414d55; color:var(--mint); cursor:pointer; font-size:.8rem; transition:background .2s ease; }
+.protein-history-toggle:hover { background:#4d5a63; }
 .protein-actions { display:flex; gap:8px; align-items:center; }
 #proteinAmount { width:115px; min-height:34px; padding:0 9px; color:var(--text); border:1px solid var(--line); border-radius:7px; background:#414d55; font-size:14px;}
 #proteinAddBtn { min-height:34px; padding:0 12px; color:#5b5c5c; border:0; border-radius:7px; background:var(--mint); cursor:pointer; font-weight:700; }
+.protein-flyout { display:none; flex-basis:100%; margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:10px; background:rgba(38,46,51,.9); }
+.protein-flyout.open { display:block; }
+.protein-flyout-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid var(--line); color:#eaf0f1; font-size:.8rem; font-weight:700; text-transform:uppercase; }
+#proteinHistoryClearBtn { padding:4px 10px; border:1px solid var(--line); border-radius:6px; background:#414d55; color:var(--muted); cursor:pointer; font-size:.75rem; }
+#proteinHistoryClearBtn:hover { background:#4d5a63; color:var(--text); }
+.protein-history-list { list-style:none; padding:0; margin:0; max-height:200px; overflow-y:auto; }
+.protein-history-item { display:flex; align-items:center; gap:10px; padding:7px 4px; color:#dce2e3; border-bottom:1px solid rgba(190,207,213,.15); font-size:14px; }
+.protein-history-item:last-child { border-bottom:none; }
+.protein-history-desc { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.protein-history-amount { color:var(--mint); font-weight:700; white-space:nowrap; }
+.protein-history-remove { display:grid; place-items:center; border:0; background:transparent; cursor:pointer; opacity:.75; }
+.protein-history-remove:hover { opacity:1; }
+.protein-history-empty { padding:10px 4px; color:var(--muted); font-size:.85rem; text-align:center; }
 .history { width:min(100%, 750px); margin-top:23px; overflow:hidden; border:1px solid var(--line); border-radius:14px; background:rgba(43,52,58,.85); box-shadow:var(--shadow); }
 .histTitle { padding:14px 18px; border-bottom:1px solid var(--line); }
 .histTitle h2 { font-size:1.05rem; text-transform:uppercase; }
@@ -57,4 +75,4 @@ li button img,.histTable td button img { width:16px; }
 .hidden-menu.active { transform:translateX(0); }.hidden-menu a { color:var(--mint); }.hidden-menu table { width:100%; border-collapse:collapse; }.hidden-menu th,.hidden-menu td { padding:8px; border:1px solid var(--line); }
 .modal-overlay { position:fixed; z-index:20; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(10,14,17,.65); }.modal-box { display:flex; flex-direction:column; gap:20px; align-items:center; width:min(92%,420px); padding:28px; border:1px solid var(--line); border-radius:14px; background:#344049; box-shadow:var(--shadow); }.modal-actions { display:flex; gap:10px; }.modal-btn { padding:9px 24px; border:0; border-radius:7px; cursor:pointer; }.modal-btn-yes { background:var(--mint); }.modal-btn-no { color:var(--text); background:#53616a; }.summary-content { width:100%; max-height:300px; overflow:auto; }
 .footer { width:100%; padding:22px; text-align:center; border-top:1px solid rgba(180,200,210,.16); }.footer a { color:#aeb9bd; text-decoration:none; font-size:.78rem; }
-@media (max-width:600px) { .header{min-height:76px;padding:0 18px}.main-wrapper{padding:0 14px 28px}.status{width:244px;height:244px}.status-value{font-size:2.75rem}.entryForm{grid-template-columns:1fr}.status-section{margin-top:16px}.progress-caption{font-size:.8rem}.histTable th,.histTable td{padding:10px 5px;font-size:.75rem}.protein-counter{flex-wrap:wrap}.bmr-message-box{font-size:.9rem} }
+@media (max-width:600px) { .header{min-height:76px;padding:0 18px}.main-wrapper{padding:0 14px 28px}.status{width:244px;height:244px}.status-value{font-size:2.75rem}.entryForm{grid-template-columns:1fr}.status-section{margin-top:16px}.progress-caption{font-size:.8rem}.histTable th,.histTable td{padding:10px 5px;font-size:.75rem}.protein-counter{flex-wrap:wrap}.bmr-message-box{font-size:.9rem}.protein-flyout{width:100%} }

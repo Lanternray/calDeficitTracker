@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const addListBtn = document.getElementById("addListBtn");
   const inputDescrip = document.getElementById("inputDescrip");
   const inputAmount = document.getElementById("inputAmount");
+  const inputProtein = document.getElementById("inputProtein");
   const entriesList = document.querySelector(".entries-list ul");
   const statusDisplay = document.querySelector(".status");
   const statusValue = document.querySelector(".status-value");
@@ -10,6 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const proteinAmount = document.getElementById("proteinAmount");
   const proteinAddBtn = document.getElementById("proteinAddBtn");
   const proteinResetBtn = document.getElementById("proteinResetBtn");
+  const proteinHistoryToggle = document.getElementById("proteinHistoryToggle");
+  const proteinFlyout = document.getElementById("proteinFlyout");
+  const proteinHistoryList = document.getElementById("proteinHistoryList");
+  const proteinHistoryClearBtn = document.getElementById("proteinHistoryClearBtn");
 
   const histAddBtn = document.getElementById("histAddBtn");
   const histDate = document.getElementById("histDate");
@@ -24,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let totalCalories = 0;
   let proteinTotal = 0;
+  let proteinHistory = [];
   let entries = [];
   let historyEntries = [];
   let nextEntryId = 1;
@@ -66,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Save and load state
   function saveState() {
-    const state = { entries, totalCalories, proteinTotal, historyEntries, nextEntryId, nextHistoryId };
+    const state = { entries, totalCalories, proteinTotal, proteinHistory, historyEntries, nextEntryId, nextHistoryId };
     setLocalStorage("calorieTrackerState", JSON.stringify(state));
   }
 
@@ -95,7 +101,9 @@ document.addEventListener("DOMContentLoaded", () => {
         updateBmrMessage();
       }
       proteinTotal = state.proteinTotal || 0;
+      proteinHistory = state.proteinHistory || [];
       updateProteinCount();
+      renderProteinHistory();
       if (state.historyEntries && Array.isArray(state.historyEntries)) {
         historyEntries = state.historyEntries;
         // Ensure all loaded history entries have unique IDs
@@ -139,6 +147,64 @@ document.addEventListener("DOMContentLoaded", () => {
     proteinCount.textContent = `${proteinTotal}`;
   }
 
+  function renderProteinHistory() {
+    proteinHistoryList.innerHTML = "";
+    if (proteinHistory.length === 0) {
+      const emptyLi = document.createElement("li");
+      emptyLi.className = "protein-history-empty";
+      emptyLi.textContent = "No protein entries yet.";
+      proteinHistoryList.appendChild(emptyLi);
+      return;
+    }
+    proteinHistory.forEach((item, index) => {
+      const li = document.createElement("li");
+      li.className = "protein-history-item";
+
+      const descSpan = document.createElement("span");
+      descSpan.className = "protein-history-desc";
+      descSpan.textContent = item.description || "(no description)";
+
+      const amountSpan = document.createElement("span");
+      amountSpan.className = "protein-history-amount";
+      amountSpan.textContent = `${item.amount}g`;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.className = "protein-history-remove";
+      removeBtn.title = "Remove entry";
+      const icon = document.createElement("img");
+      icon.src = "icons/remove.svg";
+      icon.alt = "Remove";
+      icon.style.width = "14px";
+      icon.style.height = "14px";
+      removeBtn.appendChild(icon);
+
+      removeBtn.addEventListener("click", () => {
+        proteinHistory.splice(index, 1);
+        renderProteinHistory();
+        saveState();
+      });
+
+      li.appendChild(descSpan);
+      li.appendChild(amountSpan);
+      li.appendChild(removeBtn);
+      proteinHistoryList.appendChild(li);
+    });
+  }
+
+  proteinHistoryToggle.addEventListener("click", () => {
+    proteinFlyout.classList.toggle("open");
+    const arrow = proteinHistoryToggle.querySelector(".protein-history-arrow");
+    if (arrow) {
+      arrow.innerHTML = proteinFlyout.classList.contains("open") ? "&#9650;" : "&#9660;";
+    }
+  });
+
+  proteinHistoryClearBtn.addEventListener("click", () => {
+    proteinHistory = [];
+    renderProteinHistory();
+    saveState();
+  });
+
   function updateTefCount() {
     const sum = entries.reduce((total, e) => total + (e.amount > 0 ? e.amount : 0), 0);
     const tef = Math.round(sum * 0.1);
@@ -172,12 +238,16 @@ document.addEventListener("DOMContentLoaded", () => {
   function performMainReset() {
     entries = [];
     totalCalories = 0;
+    proteinTotal = 0;
+    proteinHistory = [];
 
     entriesList.innerHTML = "";
 
     updateStatus();
     updateIntakeCount();
     updateBmrMessage();
+    updateProteinCount();
+    renderProteinHistory();
     saveState();
   }
 
@@ -262,6 +332,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addListBtn.addEventListener("click", () => {
     const description = inputDescrip.value.trim();
     const amount = parseFloat(inputAmount.value.trim()) || 0;
+    const protein = parseFloat(inputProtein.value.trim()) || 0;
 
     const entry = { id: nextEntryId++, description, amount };
     entries.push(entry);
@@ -271,10 +342,19 @@ document.addEventListener("DOMContentLoaded", () => {
     updateStatus();
     updateIntakeCount();
     updateBmrMessage();
+
+    if (protein > 0) {
+      proteinTotal += protein;
+      proteinHistory.push({ description, amount: protein });
+      updateProteinCount();
+      renderProteinHistory();
+    }
+
     saveState();
 
     inputDescrip.value = "";
     inputAmount.value = "";
+    inputProtein.value = "";
   });
 
   // Added "enter" key to trigger new entry
@@ -285,11 +365,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  inputProtein.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addListBtn.click();
+    }
+  });
+
   proteinAddBtn.addEventListener("click", () => {
     const amount = parseFloat(proteinAmount.value.trim()) || 0;
 
     proteinTotal += amount;
+    proteinHistory.push({ description: "(manual)", amount });
     updateProteinCount();
+    renderProteinHistory();
     saveState();
 
     proteinAmount.value = "";
@@ -304,7 +393,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   proteinResetBtn.addEventListener("click", () => {
     proteinTotal = 0;
+    proteinHistory = [];
     updateProteinCount();
+    renderProteinHistory();
     saveState();
   });
 

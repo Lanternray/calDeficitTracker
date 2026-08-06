@@ -125,6 +125,7 @@
                     <button id="addListBtn">Add Entry</button>
                     <input type="text" id="inputDescrip" placeholder="Describe activity or food">
                     <input type="number" id="inputAmount" placeholder="Calorie amount">
+                    <input type="number" id="inputProtein" placeholder="Protein amount (g)">
                     <div class="entry-actions">
                         <button id="saveBtn" title="Save entries to history">Save to History</button>
                         <button id="resetBtn" title="Reset entries">
@@ -153,9 +154,14 @@
             </div>
 
             <div class="protein-counter">
-                <div>
-                    <p class="protein-label">Protein</p>
-                    <p id="proteinCount" class="protein-count">0</p>
+                <div class="protein-header">
+                    <div>
+                        <p class="protein-label">Protein</p>
+                        <p id="proteinCount" class="protein-count">0</p>
+                    </div>
+                    <button id="proteinHistoryToggle" class="protein-history-toggle" title="View protein history">
+                        <span class="protein-history-arrow">&#9660;</span>
+                    </button>
                 </div>
                 <div class="protein-actions">
                     <input type="number" id="proteinAmount" placeholder="Amount">
@@ -163,6 +169,13 @@
                     <button id="proteinResetBtn" title="Reset protein">
                         <img src="icons/reset.svg" alt="reset">
                     </button>
+                </div>
+                <div class="protein-flyout" id="proteinFlyout">
+                    <div class="protein-flyout-header">
+                        <span>Protein History</span>
+                        <button id="proteinHistoryClearBtn" title="Clear history">Clear</button>
+                    </div>
+                    <ul class="protein-history-list" id="proteinHistoryList"></ul>
                 </div>
             </div>
 
