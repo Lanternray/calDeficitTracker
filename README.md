@@ -1,1 +1,1 @@
-Calorie Tracker app
+Calorie Tracker web app
