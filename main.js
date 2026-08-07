@@ -73,10 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
     timeTooltip.style.display = "none";
   }
 
-  // Hide the tooltip when clicking anywhere outside an entry
+  // Hide the tooltip when clicking anywhere outside an entry that triggers it
+  // (entry clicks show the tooltip, so they must not immediately hide it)
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".entries-list li")) hideTimeTooltip();
   });
+  // Hide the tooltip when scrolling (capture catches scrolls on any element)
+  document.addEventListener("scroll", hideTimeTooltip, true);
+  window.addEventListener("scroll", hideTimeTooltip);
 
   function updateBmrMessage() {
     const bmrEntry = entries.find(e => e.description.toUpperCase() === "BMR");
