@@ -37,6 +37,47 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const bmrMessageBox = document.querySelector(".bmr-message-box");
 
+  // Tooltip for showing the recorded time of an entry when it is clicked
+  const timeTooltip = document.createElement("div");
+  timeTooltip.className = "entry-time-tooltip";
+  document.body.appendChild(timeTooltip);
+
+  function formatCurrentTime() {
+    const now = new Date();
+    let hours = now.getHours();
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+    const meridiem = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    return `${hours}:${minutes}:${seconds} ${meridiem}`;
+  }
+
+  function showTimeTooltip(event, time) {
+    timeTooltip.textContent = `Added at ${time}`;
+    timeTooltip.style.display = "block";
+
+    const offset = 14;
+    let left = event.clientX + offset;
+    let top = event.clientY + offset;
+    const rect = timeTooltip.getBoundingClientRect();
+    // Keep the tooltip on screen when near the viewport edges
+    if (left + rect.width > window.innerWidth) left = event.clientX - rect.width - offset;
+    if (top + rect.height > window.innerHeight) top = event.clientY - rect.height - offset;
+    if (left < 0) left = 0;
+    if (top < 0) top = 0;
+    timeTooltip.style.left = `${left}px`;
+    timeTooltip.style.top = `${top}px`;
+  }
+
+  function hideTimeTooltip() {
+    timeTooltip.style.display = "none";
+  }
+
+  // Hide the tooltip when clicking anywhere outside an entry
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".entries-list li")) hideTimeTooltip();
+  });
+
   function updateBmrMessage() {
     const bmrEntry = entries.find(e => e.description.toUpperCase() === "BMR");
     if (bmrEntry) {
@@ -274,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
   modalNo.addEventListener("click", hideResetModal);
 
   // Entries
-  function createEntryElement(id, description, amount) {
+  function createEntryElement(id, description, amount, time) {
     const li = document.createElement("li");
     li.style.display = "flex";
     li.style.alignItems = "center";
@@ -319,12 +360,19 @@ document.addEventListener("DOMContentLoaded", () => {
     li.appendChild(removeBtn);
     li.appendChild(textSpan);
     entriesList.appendChild(li);
+
+    // Click on the entry to show its recorded time at the click position
+    li.addEventListener("click", (event) => {
+      // Ignore clicks on the remove button
+      if (event.target.closest("button")) return;
+      if (time) showTimeTooltip(event, time);
+    });
   }
 
   function renderEntries() {
     entriesList.innerHTML = "";
     entries.forEach(entry => {
-      createEntryElement(entry.id, entry.description, entry.amount);
+      createEntryElement(entry.id, entry.description, entry.amount, entry.time);
     });
   }
 
@@ -334,9 +382,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const amount = parseFloat(inputAmount.value.trim()) || 0;
     const protein = parseFloat(inputProtein.value.trim()) || 0;
 
-    const entry = { id: nextEntryId++, description, amount };
+    const entry = { id: nextEntryId++, description, amount, time: formatCurrentTime() };
     entries.push(entry);
-    createEntryElement(entry.id, description, amount);
+    createEntryElement(entry.id, description, amount, entry.time);
 
     totalCalories += amount;
     updateStatus();
