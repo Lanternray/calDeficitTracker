@@ -27,7 +27,8 @@ button,input { font:inherit; }
 #inputDescrip { grid-column:1 / -1; }
 input::placeholder { color:#c0c8cc; }
 .entry-actions { grid-column:1 / -1; display:flex; justify-content:flex-start; align-items:center; gap:10px; padding-top:2px; }
-#saveBtn { min-height:38px; padding:0 26px; border:1px solid rgba(137,224,215,.6); border-radius:8px; color:#f4ffff; background:linear-gradient(135deg,#0b7178,#095a63); box-shadow:0 3px 10px rgba(0,0,0,.22); cursor:pointer; margin-top: 8px; }
+#saveBtn { min-height:38px; padding:0 26px; display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(137,224,215,.6); border-radius:8px; color:#f4ffff; background:linear-gradient(135deg,#0b7178,#095a63); box-shadow:0 3px 10px rgba(0,0,0,.22); cursor:pointer; margin-top: 8px; }
+#saveBtn img { width:20px; height:20px; }
 #saveBtn:hover { background:linear-gradient(135deg,#10818a,#0b6871); }
 #resetBtn,#histResetBtn,#proteinResetBtn { width:46px; min-height:36px; display:grid; place-items:center; border:1px solid #87969d; border-radius:9px; background:#3f4b52; cursor:pointer; }
 #resetBtn img,#histResetBtn img,#proteinResetBtn img { width:23px; filter:brightness(2) grayscale(1); }
