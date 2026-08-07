@@ -38,7 +38,8 @@
             <div class="hidden-menu">
                 <b><u>INSTRUCTION</u></b><br>
                 <p>1. Each day, enter your <b>BMR</b> and <b>NEAT</b> values using the calculators below (<i>enter as
-                        negative values, ex. BMR -1700, NEAT -300</i>). You should only have to calculate this once to use the same values each day unless there's a change in age or weight.</p>
+                        negative values, ex. BMR -1700, NEAT -300</i>).</p>
+                <p>You should only have to calculate this once to use the same values each day unless there's a change in age or weight.</p>
                 <p style="font-size: 14px;">
                     - 
                     <a href="https://www.calculator.net/bmr-calculator.html" target="_blank" rel="noreferrer">
@@ -61,8 +62,9 @@
                     </a>
                 </p><br>
 
-                <p>3. Aim for a calorie deficit between -300 and -500 per day for burning 1 lb of body fat per week. Do <b>NOT</b> try to exceed -500. If you're too far below, eat more to stay within the safe range.
+                <p>3. Aim for a calorie deficit between -300 and -500 per day for burning 1 lb of body fat per week.
                 </p>
+                <p>Do <b>NOT</b> try to exceed -500. If you're too far below, eat more to stay within the safe range.</p>
                 <p style="font-size: 14px;">- When a deficit is no longer the goal
                     <i>(for example, when maintaining weight)</i>, adjust your intake accordingly to match your energy
                     expenditure.
@@ -127,7 +129,6 @@
                     <input type="number" id="inputAmount" placeholder="Calorie amount">
                     <input type="number" id="inputProtein" placeholder="Protein amount (g)">
                     <div class="entry-actions">
-                        <button id="saveBtn" title="Save entries to history">Save to History</button>
                         <button id="resetBtn" title="Reset entries">
                             <img src="icons/reset.svg" alt="reset">
                         </button>
@@ -137,6 +138,7 @@
                 <div class="entries-list">
                     <ul></ul>
                 </div>
+                <button id="saveBtn" title="Save entries to history"> &#128427; History</button>
             </div>
 
             <div class="intake-counter">
